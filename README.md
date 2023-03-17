@@ -32,6 +32,7 @@ Replace `DIRECTORY` with the path to the folder containing your Trivial Pursuit 
 
 - Python 3
 - Google Cloud Vision API
+- Other Python packages as specified in the requirements.txt file
 
 Please refer to the [Google Cloud Vision API documentation](https://cloud.google.com/vision/docs/setup) for detailed setup and usage instructions.
 
