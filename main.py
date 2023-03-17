@@ -1,4 +1,4 @@
-
+import argparse
 import os
 import re
 import csv
@@ -9,6 +9,12 @@ import urllib.parse
 from tqdm import tqdm
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Traite les images de Trivial Pursuit et génère des fichiers CSV avec les questions et réponses.")
+    parser.add_argument("-d", "--directory", help="Le dossier contenant les images de Trivial Pursuit à traiter.", required=True)
+    parser.add_argument("-t", "--threshold", type=int, default=40, help="Le seuil pour déterminer les nouvelles lignes lors de l'extraction du texte horizontal.")
+    return parser.parse_args()
 
 
 def extract_horizontal_text(response, threshold=40):
@@ -116,11 +122,15 @@ def get_image_pairs(folder):
 
 
 def main():
-    folder = "Trivial_Pursuit"
+     args = parse_arguments()
+    folder = args.directory
+    threshold = args.threshold
+    
     categories = [
         "Géographie", "Divertissement", "Histoire",
         "Arts_et_Littérature", "Science_et_Nature", "Sports_et_Loisirs"
     ]
+    
 
     print("Récupération des paires d'images...")
     image_pairs = list(tqdm(get_image_pairs(folder)))
